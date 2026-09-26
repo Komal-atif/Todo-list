@@ -4,10 +4,12 @@ A simple web-based To-Do List application for creating and managing tasks.
 
 ## Group Members
 
-| Name        | Student ID | Role         |Contribution    | 
+| Name        | Student ID | Role         |Contribution    |
 | ----------- | ---------- | ------------ |                |
 | Komal Atif  |      53635 | Team Leader  |                |
 | Sadaf Iqbal |      56352 | Collaborator |Updated README  |
+
+| Wafa Aadil  |      74775 | Collaborator |Updated Readme  |
 
 ## Project Features
 
