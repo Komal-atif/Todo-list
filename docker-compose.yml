@@ -1,0 +1,24 @@
+services:
+  backend:
+    build: ./backend
+    image: seemab00/todo-backend:v1
+    container_name: todo-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - DATA_FILE=/data/lists.json
+    volumes:
+      - todo-data:/data
+
+  frontend:
+    build: ./frontend
+    image: seemab00/todo-frontend:v1
+    container_name: todo-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  todo-data:
