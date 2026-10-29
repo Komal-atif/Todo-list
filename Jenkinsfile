@@ -4,8 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'seemab00/todo-frontend' 
         DOCKERHUB  = credentials('dockerhub-creds') 
-        // Aapka Sahi Docker Path
-        DOCKER_EXE = 'C:\\Users\\Administrator\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
+        DOCKER_EXE = '"C:\\Users\\Administrator\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe"'
     }
 
     stages {
@@ -17,22 +16,23 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                bat "\"${env.DOCKER_EXE}\" build -t %IMAGE_NAME%:%BUILD_NUMBER% -t %IMAGE_NAME%:latest ."
+                // Yahan frontend folder ka path dala hai
+                bat "${env.DOCKER_EXE} build -t %IMAGE_NAME%:%BUILD_NUMBER% -t %IMAGE_NAME%:latest -f frontend/Dockerfile frontend"
             }
         }
         
         stage('Push to Docker Hub') {
             steps {
-                bat "echo %DOCKERHUB_PSW% | \"${env.DOCKER_EXE}\" login -u %DOCKERHUB_USR% --password-stdin"
-                bat "\"${env.DOCKER_EXE}\" push %IMAGE_NAME%:%BUILD_NUMBER%"
-                bat "\"${env.DOCKER_EXE}\" push %IMAGE_NAME%:latest"
+                bat "echo %DOCKERHUB_PSW% | ${env.DOCKER_EXE} login -u %DOCKERHUB_USR% --password-stdin"
+                bat "${env.DOCKER_EXE} push %IMAGE_NAME%:%BUILD_NUMBER%"
+                bat "${env.DOCKER_EXE} push %IMAGE_NAME%:latest"
             }
         }
     }
     
     post {
         always { 
-            bat "\"${env.DOCKER_EXE}\" logout" 
+            bat "${env.DOCKER_EXE} logout" 
         }
         success { 
             echo 'Pipeline successful' 
