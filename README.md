@@ -28,3 +28,19 @@ A simple web-based To-Do List application for creating and managing tasks.
 * CSS
 * JavaScript
 
+## CI/CD Pipeline
+A GitHub Actions workflow (`.github/workflows/ci-cd.yml`) runs automatically on every push or merge to `main`:
+1. **Build:** builds the frontend and backend Docker images
+2. **Test:** installs backend dependencies and checks `server.js`
+3. **Push:** pushes both images to Docker Hub (credentials stored in GitHub Secrets)
+
+Images are published on Docker Hub and can be deployed on SnapDeploy.
+
+## Run and Deploy
+- Run locally: `docker compose up --build`
+- Add GitHub Secrets: `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`
+- Push to `main`, and the pipeline builds and pushes the images automatically
+
+## Changelog
+- **2026-11-05:** Added GitHub Actions CI/CD workflow (build, test, push to Docker Hub)
+- **2026-11-05:** Added CI/CD description and instructions to README
