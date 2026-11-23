@@ -1,0 +1,59 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-backend
+  namespace: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-backend
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+        - name: backend
+          image: todo-backend:v1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: todo-config
+            - secretRef:
+                name: todo-secret
+          volumeMounts:
+            - name: todo-storage
+              mountPath: /data
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+      volumes:
+        - name: todo-storage
+          persistentVolumeClaim:
+            claimName: todo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-backend
+  namespace: todo-app
+spec:
+  type: ClusterIP
+  selector:
+    app: todo-backend
+  ports:
+    - port: 5000
+      targetPort: 5000
