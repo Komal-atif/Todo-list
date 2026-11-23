@@ -1,5 +1,5 @@
 // Backend API (abhi alag port par). Compose ke waqt isay '/api/lists' kar dena.
-const API = 'http://localhost:5000/api/lists';
+const API = '/api/lists';
 
 let tempTasks = [];
 let currentList = null;
@@ -472,3 +472,4 @@ async function checkBackend() {
 }
 checkBackend();
 setInterval(checkBackend, 5000);
+
