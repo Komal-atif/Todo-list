@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 async function checkBackend() {
     const badge = document.getElementById('backendStatus');
     try {
-        const res = await fetch('http://localhost:5000/api/health');
+        const res = await fetch('/api/health');
         if (!res.ok) throw new Error();
         badge.textContent = '🟢 Backend connected';
         badge.style.background = '#d4ffe5';
