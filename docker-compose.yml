@@ -1,7 +1,7 @@
 services:
   backend:
     build: ./backend
-    image: seemab00/todo-backend:v1
+    image: komalx/todo-backend:v1
     container_name: todo-backend
     ports:
       - "5000:5000"
@@ -13,7 +13,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: seemab00/todo-frontend:v1
+    image: komalx/todo-frontend:v1
     container_name: todo-frontend
     ports:
       - "8080:80"
